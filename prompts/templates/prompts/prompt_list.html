@@ -1,0 +1,11 @@
+{% extends 'prompts/base.html' %}
+{% block title %}Prompt Liste{% endblock %}
+{% block content %}
+    <h2>Prompt Liste</h2>
+    <ul>
+        {% for prompt in prompts %}
+            <li>{{ prompt.text }} - <a href="{% url 'prompt_update' prompt.pk %}">Editieren</a> |
+            <a href="{% url 'prompt_delete' prompt.pk %}">Löschen</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

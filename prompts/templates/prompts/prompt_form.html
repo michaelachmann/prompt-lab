@@ -1,0 +1,10 @@
+{% extends 'prompts/base.html' %}
+{% block title %}Prompt Formular{% endblock %}
+{% block content %}
+    <h2>Prompt Formular</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Speichern</button>
+    </form>
+{% endblock %}

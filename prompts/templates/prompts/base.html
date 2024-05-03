@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}PromptLab{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Meine PromptLab-Anwendung</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'prompt_list' %}">Prompts anzeigen</a></li>
+                <li><a href="{% url 'prompt_create' %}">Prompt erstellen</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 | PromptLab</p>
+    </footer>
+</body>
+</html>
