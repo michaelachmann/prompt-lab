@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "prompts.apps.PromptsConfig"
+    "prompts.apps.PromptsConfig",
+    "datasets.apps.DatasetsConfig"
 ]
 
 MIDDLEWARE = [

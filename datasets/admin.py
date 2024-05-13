@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Prompt
 
+from datasets.models import Dataset
 
 # Register your models here.
-admin.site.register(Prompt)
+admin.site.register(Dataset)
