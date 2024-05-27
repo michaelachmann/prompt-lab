@@ -18,7 +18,7 @@ class Prompt(models.Model):
     # Basic prompt text
     text = models.TextField()
 
-    # Categorization of prompts by type (e.g., education, health)
+    # Categorization of prompts by type (e.g., classification, extraction)
     category = models.CharField(max_length=100)
 
     # Ratings: Users can select one of the options above
