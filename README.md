@@ -1,4 +1,4 @@
-# Prompt-Lab
+# Prompt-Lab 🧪🤖
 
 Welcome to the Prompt-Lab repository, a project developed by students of the M.A. Digital Humanities course in the "Übung Webtechnologien" class at the University of Regensburg.
 
