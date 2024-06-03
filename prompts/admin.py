@@ -4,4 +4,3 @@ from .models import Prompt
 
 # Register your datasets here.
 admin.site.register(Prompt)
-

@@ -1,11 +1,6 @@
-admin.site.register(Datasets)
+from django.contrib import admin
 
 from datasets.models import Dataset
 
+# Register your models here.
 admin.site.register(Dataset)
-
-
-# admin.site
-# from django.contrib import admin
-
-# Register your datasets here.
