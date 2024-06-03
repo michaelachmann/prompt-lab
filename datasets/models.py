@@ -5,6 +5,7 @@ class Dataset(models.Model):
     # Dataset Title
     title = models.CharField(max_length=100)
 
+
     #Beschreibung
     description = models.TextField()
 
@@ -17,7 +18,6 @@ class Dataset(models.Model):
 
     #Version
     version = models.FloatField(default=1.0)
-
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)

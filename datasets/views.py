@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Dataset
@@ -45,4 +43,4 @@ def dataset_delete(request, pk):
         dataset.delete()
         return redirect('dataset_list')
     return render(request, 'datasets/dataset_confirm_delete.html', {'dataset': dataset})
-# Create your views here.
+

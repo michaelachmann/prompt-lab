@@ -4,4 +4,3 @@ from .models import Prompt
 
 # Register your models here.
 admin.site.register(Prompt)
-
