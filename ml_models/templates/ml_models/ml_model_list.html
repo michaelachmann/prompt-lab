@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}ML Model Liste{% endblock %}
+{% block content %}
+    <h2>ML Model Liste</h2>
+    <ul>
+        {% for ml_model in ml_models %}
+            <li>{{ ml_model.text }} - <a href="{% url 'ml_model_update' ml_model.pk %}">Editieren</a> |
+            <a href="{% url 'ml_model_delete' ml_model.pk %}">Löschen</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
