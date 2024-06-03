@@ -9,6 +9,10 @@ def prompt_list(request):
     return render(request, 'prompts/prompt_list.html', {'prompts': prompts})
 
 
+def prompt_detail(request, pk):
+    prompt = get_object_or_404(Prompt, pk=pk)
+    return render(request, 'prompts/prompt_detail.html', {'prompt': prompt})
+
 @login_required  # Ensures that only logged-in users can access this view
 def prompt_create(request):
     if request.method == 'POST':

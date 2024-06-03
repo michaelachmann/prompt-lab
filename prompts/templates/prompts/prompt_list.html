@@ -1,11 +1,36 @@
-{% extends 'prompts/base.html' %}
+{% extends 'base.html' %}
 {% block title %}Prompt Liste{% endblock %}
 {% block content %}
-    <h2>Prompt Liste</h2>
-    <ul>
-        {% for prompt in prompts %}
-            <li>{{ prompt.text }} - <a href="{% url 'prompt_update' prompt.pk %}">Editieren</a> |
-            <a href="{% url 'prompt_delete' prompt.pk %}">Löschen</a></li>
-        {% endfor %}
-    </ul>
+    <h2>Prompts</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a class="btn btn-secondary" href="{% url 'prompt_create' %}">
+            <i class="fas fa-plus"></i> Prompt erstellen
+        </a>
+    </div>
+       <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prompt in prompts %}
+                <tr>
+                    <td><a href="{% url 'prompt_detail' prompt.pk %}">{{ prompt.title }}</a></td>
+                    <td>{{ prompt.text|truncatewords:10 }}</td>
+                    <td>{{ prompt.category }}</td>
+                    <td>{{ prompt.creator.username }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{% url 'prompt_update' prompt.pk %}">Bearbeiten</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'prompt_delete' prompt.pk %}">Löschen</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

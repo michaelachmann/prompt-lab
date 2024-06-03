@@ -1,10 +1,50 @@
-{% extends 'prompts/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Prompt Formular{% endblock %}
 {% block content %}
+    <style>
+        .form-label {
+            text-align: right;
+        }
+        .form-control {
+            margin-bottom: 1rem;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
     <h2>Prompt Formular</h2>
-    <form method="post">
+    <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Speichern</button>
+        <div class="form-group row">
+            <label for="{{ form.title.id_for_label }}" class="col-sm-2 col-form-label form-label">Title</label>
+            <div class="col-sm-10">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.text.id_for_label }}" class="col-sm-2 col-form-label form-label">Prompt</label>
+            <div class="col-sm-10">
+                {{ form.text }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.category.id_for_label }}" class="col-sm-2 col-form-label form-label">Category</label>
+            <div class="col-sm-10">
+                {{ form.category }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Rating</label>
+            <div class="col-sm-10">
+                {{ form.rating }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
     </form>
 {% endblock %}
