@@ -1,0 +1,11 @@
+{% extends 'datasets/base.html' %}
+{% block title %}Dataset löschen{% endblock %}
+{% block content %}
+    <h2>Dataset wirklich löschen?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>Sind Sie sicher, dass Sie "{{ dataset.description }}" löschen möchten?</p>
+        <button type="submit">Löschen</button>
+        <a href="{% url 'dataset_list' %}">Abbrechen</a>
+    </form>
+{% endblock %}
