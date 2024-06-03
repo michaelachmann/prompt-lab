@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datasets.models import Dataset
-from ml_model.models import MLModel
+from ml_models.models import MLModel
 from prompts.models import Prompt
 
 

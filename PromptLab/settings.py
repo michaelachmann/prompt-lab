@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "prompts.apps.PromptsConfig",
     "datasets.apps.DatasetsConfig",
     "experiments.apps.ExperimentsConfig",
-    "ml_model.apps.MlModelConfig"
+    "ml_models.apps.MlModelsConfig"
 ]
 
 MIDDLEWARE = [
