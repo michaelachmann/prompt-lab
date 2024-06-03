@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "prompts.apps.PromptsConfig",
-    "datasets.apps.DatasetsConfig"
+    "datasets.apps.DatasetsConfig",
+    "experiments.apps.ExperimentsConfig",
+    "ml_models.apps.MlModelsConfig"
 ]
 
 MIDDLEWARE = [
