@@ -44,6 +44,6 @@ def ml_model_delete(request, pk):
     return render(request, 'templates/ml_models/ml_model_confirm_delete.html', {'models': models})
 
 
-
+jhdfsfsd
 
 
