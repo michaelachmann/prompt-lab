@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('prompts/', include('prompts.urls')),  # Pfad zu den URLs Ihrer App
+    path('ml_models/', include('ml_models.urls')),  # Pfad zu den URLs Ihrer App
 ]
