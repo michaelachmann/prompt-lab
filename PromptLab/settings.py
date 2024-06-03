@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+#steuert die Eisntellungen für das gesamte Projekt
 
 from pathlib import Path
 
@@ -38,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "prompts.apps.PromptsConfig",
-    "datasets.apps.DatasetsConfig"
+    "datasets.apps.DatasetsConfig",
+    "experiments.apps.ExperimentsConfig",
+    "ml_models.apps.MlModelsConfig"
 ]
 
 MIDDLEWARE = [
