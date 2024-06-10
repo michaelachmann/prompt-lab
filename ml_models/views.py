@@ -7,8 +7,14 @@ from .forms import MLModelForm
 ##### test fürs pushen
 
 def ml_model_list(request):
-    models = MLModel.objects.all()
-    return render(request, '/templates/ml_models/ml_model_list.html', {'models': models})
+    ml_models = MLModel.objects.all()
+    return render(request, '/templates/ml_models/ml_model_list.html', {'ml_models': ml_models})
+
+
+def ml_model_detail(request, pk):
+    ml_model = get_object_or_404(ml_model, pk=pk)
+    return render(request, 'ml_models/ml_model_detail.html', {'ml_model': ml_model})
+
 
 @login_required
 def ml_model_create(request):
@@ -22,7 +28,7 @@ def ml_model_create(request):
             return redirect('ml_model_list')
     else:
         form = MLModelForm()
-    return render(request, 'templates/ml_models/prompt_form.html', {'form': form})
+    return render(request, 'templates/ml_models/ml_model_form.html', {'form': form})
 
 @login_required
 def ml_model_update(request, pk):
@@ -44,7 +50,7 @@ def ml_model_delete(request, pk):
     if request.method == 'POST':
         ml_model.delete()
         return redirect('ml_model_list')
-    return render(request, 'templates/ml_models/ml_model_confirm_delete.html', {'models': models})
+    return render(request, 'templates/ml_models/ml_model_confirm_delete.html', {'ml_model': ml_models})
 
 
 
