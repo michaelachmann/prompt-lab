@@ -7,3 +7,5 @@ urlpatterns = [
     path('ml_model/<int:pk>/edit/', views.ml_model_update, name='ml_model_update'),
     path('ml_model/<int:pk>/delete/', views.ml_model_delete, name='ml_model_delete'),
 ]
+
+
