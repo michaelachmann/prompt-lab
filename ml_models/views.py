@@ -51,7 +51,3 @@ def ml_model_delete(request, pk):
         ml_model.delete()
         return redirect('ml_model_list')
     return render(request, 'templates/ml_models/ml_model_confirm_delete.html', {'ml_model': ml_models})
-
-
-
-
