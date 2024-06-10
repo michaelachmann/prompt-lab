@@ -22,6 +22,7 @@ urlpatterns = [
     path('ml_models/', include('ml_models.urls')),  # Pfad zu den URLs Ihrer App
     path('prompts/', include('prompts.urls')),
     path('datasets/', include('datasets.urls')),  # Pfad zu den URLs Ihrer App
+    path('experiments/', include('experiments.urls')),  # Pfad zu den URLs Ihrer App
 ]
 
 
