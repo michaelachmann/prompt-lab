@@ -9,3 +9,43 @@
         {% endfor %}
     </ul>
 {% endblock %}
+
+
+{% extends 'base.html' %}
+{% block title %}ML Model Liste{% endblock %}
+{% block content %}
+    <h2>ML Model Liste</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a class="btn btn-secondary" href="{% url 'ml_model_create' %}">
+            <i class="fas fa-plus"></i> ML Model erstellen
+        </a>
+    </div>
+       <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Tags</th>
+                <th>Parameters</th>
+                <th>Size</th>
+                <th>Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ml_model in ml_models %}
+                <tr>
+                    <td><a href="{% url 'ml_model_detail' ml_model.pk %}">{{ ml_model.title }}</a></td>
+                    <td>{{ ml_model.text|truncatewords:10 }}</td>
+                    <td>{{ ml_model.category }}</td>
+                    <td>{{ ml_model.creator.username }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{% url 'ml_model_update' ml_model.pk %}">Bearbeiten</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'ml_model_delete' ml_model.pk %}">Löschen</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
