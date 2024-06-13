@@ -4,6 +4,8 @@ Welcome to the Prompt-Lab repository, a project developed by students of the M.A
 
 ## Project Overview
 
+![A screenshot of the homepage](static/images/screenshot.png)
+
 Prompt-Lab is a Django-based web application designed to help researchers and practitioners keep detailed lab notes while working with machine learning and prompts. The application allows users to save data on datasets, models, experiments, and prompts, providing a comprehensive and organized way to manage and document their machine learning workflows.
 
 ## Class Details
