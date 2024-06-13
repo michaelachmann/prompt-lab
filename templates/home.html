@@ -1,0 +1,73 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% block title %}Welcome to PrompLab{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="jumbotron text-center my-5 bg-primary text-white rounded shadow">
+            <h1 class="display-4">Welcome to PrompLab</h1>
+            <p class="lead">Your Hub for Experimentation with Large Language Models and Machine Learning</p>
+            <a class="btn btn-light btn-lg" href="#" role="button">Get Started with PrompLab</a>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="row text-center mb-5">
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-file-earmark-text-fill display-2  mb-3 text-primary"></i>
+                <h3>Manage Prompts</h3>
+                <p>Easily store and retrieve LLM prompts with comprehensive metadata.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-robot display-2  mb-3 text-primary"></i>
+                <h3>Track ML Models</h3>
+                <p>Maintain detailed records of your ML and LLM models.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-database-fill display-2  mb-3 text-primary"></i>
+                <h3>Organize Datasets</h3>
+                <p>Keep an organized database of datasets used in your experiments.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-journal display-2  mb-3 text-primary"></i>
+                <h3>Document Experiments</h3>
+                <p>Thoroughly document your experiments, linking models, datasets, and prompts.</p>
+            </div>
+        </div>
+        
+        <!-- Introduction Section -->
+        <div class="mt-5">
+            <h2>Introduction</h2>
+            <p>PrompLab is a web application designed for researchers and developers working with LLMs and ML models. Our goal is to simplify the documentation and evaluation process, providing a seamless experience for managing prompts, models, datasets, and experiments.</p>
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="mt-5">
+            <h2>How It Works</h2>
+            <ol>
+                <li>Create an account and log in to PrompLab.</li>
+                <li>Start by adding your LLM prompts, models, and datasets.</li>
+                <li>Conduct your experiments and document the results within the platform.</li>
+                <li>Analyze and review your experiments through our intuitive interface.</li>
+            </ol>
+        </div>
+        
+        <!-- Testimonials Section -->
+        <div class="mt-5">
+            <h2>Testimonials</h2>
+            <div class="testimonial bg-light p-4 rounded shadow-sm border-left border-primary">
+                <blockquote class="blockquote">
+                    <p class="mb-0">"PrompLab has revolutionized how we document our ML experiments. It's user-friendly and incredibly efficient."</p>
+                </blockquote>
+                <footer class="blockquote-footer mt-3">
+                    Dr. Sarah Johnson, <cite title="Source Title">AI Researcher</cite>
+                </footer>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="mt-5 mb-5">
+            <h2>Contact Us</h2>
+            <p>Have questions or need support? Contact us at <a href="mailto:contact@promplab.com">contact@promplab.com</a>.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+/* static/css/custom.css */
+.jumbotron {
+    background-color: #007bff;  /* Primary color */
+    padding: 2rem 1rem;
+    color: white;
+}
+
+.jumbotron .btn {
+    margin-top: 1rem;
+}
+
+.row.text-center .col-md-3 {
+    padding: 2rem 1rem;
+}
+
+h2 {
+    margin-top: 2rem;
+    color: #007bff;  /* Primary color */
+}
+
+.blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #007bff;  /* Primary color */
+    margin: 1.5rem 10px;
+    padding: 1rem 1.5rem;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+.blockquote p {
+    font-style: italic;
+    font-size: 1.25rem;
+}
+
+.blockquote-footer {
+    color: #6c757d;  /* Secondary text color */
+}
+
+.testimonial {
+    background-color: #f8f9fa;  /* Light background color */
+    border-left: 5px solid #007bff;  /* Primary color */
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial .blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* static/css/custom.css */
+.footer {
+    background-color: #007bff;  /* Primary color */
+    color: white;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

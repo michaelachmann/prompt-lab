@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Experiment Form{% endblock %}
+{% block content %}
+    <style>
+        .form-label {
+            text-align: right;
+        }
+        .form-control {
+            margin-bottom: 1rem;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+    <h2 class="mb-5">Log an Experiment</h2>
+
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="{{ form.prompt.id_for_label }}" class="col-sm-2 col-form-label form-label">Prompt</label>
+            <div class="col-sm-10">
+                {{ form.prompt }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.dataset.id_for_label }}" class="col-sm-2 col-form-label form-label">Dataset</label>
+            <div class="col-sm-10">
+                {{ form.dataset }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.model.id_for_label }}" class="col-sm-2 col-form-label form-label">Model</label>
+            <div class="col-sm-10">
+                {{ form.model }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label form-label">Description</label>
+            <div class="col-sm-10">
+                {{ form.description }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.f1_score_macro.id_for_label }}" class="col-sm-2 col-form-label form-label">F1 Score Macro</label>
+            <div class="col-sm-10">
+                {{ form.f1_score_macro }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.f1_score_micro.id_for_label }}" class="col-sm-2 col-form-label form-label">F1 Score Micro</label>
+            <div class="col-sm-10">
+                {{ form.f1_score_micro }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.f1_score_weighted.id_for_label }}" class="col-sm-2 col-form-label form-label">F1 Score Weighted</label>
+            <div class="col-sm-10">
+                {{ form.f1_score_weighted }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.precision.id_for_label }}" class="col-sm-2 col-form-label form-label">Precision</label>
+            <div class="col-sm-10">
+                {{ form.precision }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.recall.id_for_label }}" class="col-sm-2 col-form-label form-label">Recall</label>
+            <div class="col-sm-10">
+                {{ form.recall }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.accuracy.id_for_label }}" class="col-sm-2 col-form-label form-label">Accuracy</label>
+            <div class="col-sm-10">
+                {{ form.accuracy }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.notes.id_for_label }}" class="col-sm-2 col-form-label form-label">Notes</label>
+            <div class="col-sm-10">
+                {{ form.notes }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

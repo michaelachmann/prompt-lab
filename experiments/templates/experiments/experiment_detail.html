@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdownify %}
+{% block title %}Experiment Detail{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Experiment: {{ experiment.prompt.title }} on {{ experiment.dataset.title }} using  {{ experiment.model.name }}</h2>
+            <div>
+                <a href="{% url 'experiment_update' experiment.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                <a href="{% url 'experiment_delete' experiment.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
+            </div>
+        </div>
+        <p class="text-muted">{{ experiment.creator.username }} <span class="ml-3">Created: {{ experiment.created_at|date:"d.m.Y" }}</span> <span class="ml-3">Last Modified: {{ experiment.updated_at|date:"d.m.Y" }}</span></p>
+        <p class="small">{{ experiment.description }}</p>
+
+
+
+        <div class="mb-4">
+                <h3>Notes</h3>
+                <div class="markdown-content">
+                    {{ experiment.notes|markdownify }}
+                </div>
+        </div>
+
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                                <div class="card">
+                    <div class="card-header">
+                        <h5>Prompt</h5>
+                    </div>
+                    <div class="card-body">
+                <blockquote class="blockquote">{{ experiment.prompt.text }}</blockquote>
+                    </div>
+                                    <div class="card-footer text-body-secondary">
+                                        <a href="{% url 'prompt_detail' experiment.prompt.pk %}" class="link-dark">{{ experiment.prompt.title }}</a>
+                                    </div>
+                                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>Dataset:</strong>&nbsp;<a href="#">{{ experiment.dataset.title }}</a></li>
+                    <li class="list-group-item"><strong>Model:</strong>&nbsp;<a href="#">{{ experiment.model.name }}</a></li>
+                </ul>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Evaluation</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Metric</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if experiment.f1_score_macro %}
+                                <tr>
+                                    <td>F1 Score (Macro)</td>
+                                    <td>{{ experiment.f1_score_macro }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if experiment.f1_score_micro %}
+                                <tr>
+                                    <td>F1 Score (Micro)</td>
+                                    <td>{{ experiment.f1_score_micro }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if experiment.f1_score_weighted %}
+                                <tr>
+                                    <td>F1 Score (Weighted)</td>
+                                    <td>{{ experiment.f1_score_weighted }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if experiment.precision %}
+                                <tr>
+                                    <td>Precision</td>
+                                    <td>{{ experiment.precision }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if experiment.recall %}
+                                <tr>
+                                    <td>Recall</td>
+                                    <td>{{ experiment.recall }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if experiment.accuracy %}
+                                <tr>
+                                    <td>Accuracy</td>
+                                    <td>{{ experiment.accuracy }}</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

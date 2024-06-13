@@ -1,25 +1,37 @@
 {% extends 'base.html' %}
-{% block title %}Experiment Liste{% endblock %}
+{% block title %}Experiment List{% endblock %}
 {% block content %}
     <h2>Experiments</h2>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <a class="btn btn-secondary" href="#">
-            <i class="fas fa-plus"></i> Experiment erstellen
+        <a class="btn btn-secondary" href="{% url 'experiment_create' %}">
+            <i class="fas fa-plus"></i> Create Experiment
         </a>
     </div>
-       <table class="table table-striped">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Category</th>
-                <th>Author</th>
+                <th>Prompt</th>
+                <th>Dataset</th>
+                <th>Model</th>
+                <th>Accuracy</th>
+                <th>Created By</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            
+            {% for experiment in experiments %}
+                <tr>
+                    <td><a href="{% url 'experiment_detail' experiment.pk %}">{{ experiment.prompt.title }}</a></td>
+                    <td>{{ experiment.dataset.title }}</td>
+                    <td>{{ experiment.model.name }}</td>
+                    <td>{{ experiment.accuracy }}</td>
+                    <td>{{ experiment.creator.username }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{% url 'experiment_update' experiment.pk %}">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'experiment_delete' experiment.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

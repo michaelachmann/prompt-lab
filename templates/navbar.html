@@ -1,14 +1,13 @@
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="{% url 'prompt_list' %}" class="nav-link px-2 link-secondary">Prompts</a></li>
-          <li><a href="{% url 'ml_model_list' %}" class="nav-link px-2 link-body-emphasis">Models</a></li>
-          <li><a href="{% url 'dataset_list' %}" class="nav-link px-2 link-body-emphasis">Datasets</a></li>
-          <li><a href="{% url 'experiment_list' %}" class="nav-link px-2 link-body-emphasis">Experiments</a></li>
-        </ul>
-
-      </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'home' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'home' %}link-secondary{% else %}link-body-emphasis{% endif %}">PromptLab</a></li>
+                <li><a href="{% url 'prompt_list' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'prompt_list' %}link-secondary{% else %}link-body-emphasis{% endif %}">Prompts</a></li>
+                <li><a href="{% url 'ml_model_list' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'ml_model_list' %}link-secondary{% else %}link-body-emphasis{% endif %}">Models</a></li>
+                <li><a href="{% url 'dataset_list' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'dataset_list' %}link-secondary{% else %}link-body-emphasis{% endif %}">Datasets</a></li>
+                <li><a href="{% url 'experiment_list' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'experiment_list' %}link-secondary{% else %}link-body-emphasis{% endif %}">Experiments</a></li>
+            </ul>
+        </div>
     </div>
-  </header>
+</header>
