@@ -17,14 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import home
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),  # Add this line for the homepage
-    path('ml_models/', include('ml_models.urls')),  # Pfad zu den URLs Ihrer App
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('ml_models/', include('ml_models.urls')),
     path('prompts/', include('prompts.urls')),
-    path('datasets/', include('datasets.urls')),  # Pfad zu den URLs Ihrer App
-    path('experiments/', include('experiments.urls')),  # Pfad zu den URLs Ihrer App
+    path('datasets/', include('datasets.urls')),
+    path('experiments/', include('experiments.urls')),
 ]
 
 
