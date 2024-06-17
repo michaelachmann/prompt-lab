@@ -11,11 +11,14 @@
                 <a href="{% url 'ml_model_delete' ml_model.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
             </div>
         </div>
-        <div class="mb-4">Tags: {{ ml_model.tags }}</div>
-        <div class="mb-4">Parameters: {{ ml_model.parameters }}</div>
-        <div class="mb-4">Size: {{ ml_model.size }}</div>
-        <div class="mb-4">Version: {{ ml_model.version }}</div>
-
+    <div class="float-left">
+        <div class="row justify-content-start">
+            <div class="col-2">Tags: {{ ml_model.tags }}</div>
+            <div class="col-2">Parameters: {{ ml_model.parameters }}</div>
+            <div class="col-2">Size: {{ ml_model.size }}</div>
+            <div class="col-2">Version: {{ ml_model.version }}</div>
+        </div>
+    </div>
         <p class="text-muted">{{ ml_model.creator.username}} <span class="ml-3">Created: {{ ml_model.created_at|date:"d.m.Y" }}</span> <span class="ml-3">Last Modified: {{ ml_model.updated_at|date:"d.m.Y" }}</span></p>
         <div class="mb-4">{{ ml_model.description }}</div>
         <h5 class="mb-3">Rating</h5>
