@@ -1,11 +1,75 @@
 {% extends 'base.html' %}
-{% block title %}Datset Liste{% endblock %}
+{% block title %}Dataset Liste{% endblock %}
+
 {% block content %}
-    <h2>Dataset Liste</h2>
-    <ul>
+<h2>Meine Datasets</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a class="btn btn-secondary" href="{% url 'dataset_create' %}">
+        <i class="fas fa-plus"></i> Dataset erstellen
+    </a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Tags</th>
+            <th>Size (in KB)</th>
+            <th>Author</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for dataset in datasets %}
-            <li>{{ dataset.description }} - <a href="{% url 'dataset_update' dataset.pk %}">Editieren</a> |
-            <a href="{% url 'dataset_delete' dataset.pk %}">Löschen</a></li>
+            <tr>
+                <td><a href="{% url 'dataset_detail' dataset.pk %}">{{ dataset.title }}</a></td>
+                <td>{{ dataset.tags|truncatewords:10 }}</td>
+                <td>{{ dataset.size }}</td>
+                <td>{{ dataset.creator.username }}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{% url 'dataset_update' dataset.pk %}">Bearbeiten</a>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ dataset.pk }}" data-description="{{ dataset.title }}">Löschen</button>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Dataset löschen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalBody">Sind Sie sicher, dass Sie dieses Dataset löschen möchten?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <form id="deleteForm" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Löschen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var datasetId = button.getAttribute('data-id');
+        var datasetDescription = button.getAttribute('data-description');
+
+        var modalBody = deleteModal.querySelector('#deleteModalBody');
+        modalBody.textContent = 'Sind Sie sicher, dass Sie "' + datasetDescription + '" löschen möchten?';
+
+        var form = document.getElementById('deleteForm');
+        form.action = '/datasets/' + datasetId + '/delete/';  // Passen Sie diese URL an Ihre tatsächliche URL-Architektur an
+    });
+</script>
 {% endblock %}
+
+

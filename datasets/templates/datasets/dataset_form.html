@@ -1,10 +1,220 @@
-{% extends 'datasets/base.html' %}
-{% block title %}Dataset Formular{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dataset-Formular{% endblock %}
 {% block content %}
     <h2>Dataset Formular</h2>
-    <form method="post">
+    <form method="post" id="datasetForm" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Speichern</button>
+        
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.version.label_tag }}
+            {{ form.version }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.file.label_tag }}
+            {{ form.file }}
+            <small id="fileHelp" class="form-text text-muted">Wählen Sie eine CSV-Datei aus.</small>
+            <div id="fileSizeInfo" class="mt-2"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="tagInput" class="form-label">Neuer Tag</label>
+            <input type="text" id="tagInput" class="form-control" placeholder="Tag eingeben">
+            <button type="button" id="addTagButton" class="btn btn-primary mt-2">Tag hinzufügen</button>
+        </div>
+
+        <ul id="tagList" class="list-group mb-3">
+            <!-- Hier werden die hinzugefügten Tags angezeigt -->
+        </ul>
+
+        <input type="hidden" name="tags">
+
+        <button type="submit" class="btn btn-success">Speichern</button>
     </form>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        .custom-remove-button {
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("JavaScript geladen");
+
+            const addTagButton = document.getElementById('addTagButton');
+            const tagInput = document.getElementById('tagInput');
+            const tagList = document.getElementById('tagList');
+            const tagsField = document.querySelector('input[name="tags"]');
+            const fileInput = document.getElementById('{{ form.file.id_for_label }}');
+            const existingTags = new Set();
+
+            if (addTagButton && tagInput && tagList && tagsField && fileInput) {
+                console.log("Alle Elemente gefunden");
+            } else {
+                console.log("Ein oder mehrere Elemente nicht gefunden");
+            }
+
+            // AJAX-Anfrage für Autocomplete
+            $.ajax({
+                url: '{% url "tag-list" %}',
+                method: 'GET',
+                success: function(data) {
+                    $("#tagInput").autocomplete({
+                        source: data
+                    });
+                }
+            });
+
+            // Event listener für Änderungen in der Dateiauswahl
+            fileInput.addEventListener('change', function() {
+                const file = this.files[0];
+                const fileSizeInfo = document.getElementById('fileSizeInfo');
+                if (file) {
+                    const fileSizeKB = file.size / 1024;
+                    const fileSizeMB = fileSizeKB / 1024;
+                    let sizeText = '';
+                    if (fileSizeMB >= 1) {
+                        sizeText = fileSizeMB.toFixed(2) + ' MB';
+                    } else {
+                        sizeText = fileSizeKB.toFixed(2) + ' KB';
+                    }
+                    fileSizeInfo.textContent = 'Dateigröße: ' + sizeText;
+                    console.log(`Dateigröße: ${sizeText}`);
+                } else {
+                    fileSizeInfo.textContent = '';
+                }
+            });
+
+            // Formulareinreichung verhindern auf Enter-Taste
+            document.getElementById('datasetForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                saveDataset();
+            });
+
+            // Add tag on Enter key press or space key press
+            tagInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    addTag();
+                }
+            });
+
+            // Capitalize the first letter of input
+            tagInput.addEventListener('input', function() {
+                const value = tagInput.value;
+                tagInput.value = value.charAt(0).toUpperCase() + value.slice(1);
+            });
+
+            // Remove last tag on Backspace key press when tag input is empty
+            tagInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Backspace' && tagInput.value.trim() === '') {
+                    event.preventDefault();
+                    removeLastTag();
+                }
+            });
+
+            addTagButton.addEventListener('click', function() {
+                addTag();
+            });
+
+            function addTag() {
+                const tagText = tagInput.value.trim();
+                console.log("Tag-Text: ", tagText);
+                if (tagText !== '' && !existingTags.has(tagText.toLowerCase())) {
+                    existingTags.add(tagText.toLowerCase());
+
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                    listItem.textContent = tagText;
+
+                    const removeButton = document.createElement('button');
+                    removeButton.className = 'custom-remove-button btn-sm';
+                    removeButton.innerHTML = '&times;';
+                    removeButton.onclick = function() {
+                        existingTags.delete(tagText.toLowerCase());
+                        tagList.removeChild(listItem);
+                        updateTagsField();
+                    };
+
+                    listItem.appendChild(removeButton);
+                    tagList.appendChild(listItem);
+
+                    updateTagsField();
+                    tagInput.value = '';
+                    console.log("Tag hinzugefügt");
+                } else {
+                    console.log("Leeres Tag-Feld oder Tag bereits vorhanden, kein Tag hinzugefügt");
+                }
+            }
+
+            function removeLastTag() {
+                const lastTag = tagList.querySelector('li:last-child');
+                if (lastTag) {
+                    const tagText = lastTag.textContent.trim();
+                    existingTags.delete(tagText.toLowerCase());
+                    tagList.removeChild(lastTag);
+                    updateTagsField();
+                }
+            }
+
+            function updateTagsField() {
+                const tags = Array.from(existingTags);
+                tagsField.value = tags.join(',');
+                console.log("Aktuelle Tags:", tagsField.value);
+            }
+
+            function saveDataset() {
+                const formData = new FormData(document.getElementById('datasetForm'));
+
+                // Füge die Tags aus dem Set hinzu
+                formData.append('tags', Array.from(existingTags).join(','));
+
+                fetch('{% url "dataset_create" %}', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Dataset erfolgreich gespeichert!');
+                        // Weiterleitung zur dataset_list Seite
+                        window.location.href = '{% url "dataset_list" %}';
+                    } else {
+                        console.error('Fehler beim Speichern des Datasets!');
+                        response.text().then(text => {
+                            console.error('Fehlerdetails:', text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Speichern des Datasets:', error);
+                });
+            }
+        });
+    </script>
 {% endblock %}

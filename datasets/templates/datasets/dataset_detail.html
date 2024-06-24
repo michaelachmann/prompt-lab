@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dataset Detail{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>{{ dataset.title }}</h2>
+            <div>
+                <a href="{% url 'dataset_update' dataset.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash-alt"></i> Delete</button>
+            </div>
+        </div>
+        <p class="text-muted">{{ dataset.creator.username}} <span class="ml-3">Created: {{ dataset.created_at|date:"d.m.Y" }}</span> <span class="ml-3">Last Modified: {{ dataset.updated_at|date:"d.m.Y" }}</span> <span class="ml-3">Size (in KB): {{ dataset.size}}</span></p>
+        <div class="mb-4">{{ dataset.description }}</div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Dataset löschen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sind Sie sicher, dass Sie dieses Dataset löschen möchten?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                    <form id="deleteForm" method="post" action="{% url 'dataset_delete' dataset.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Löschen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

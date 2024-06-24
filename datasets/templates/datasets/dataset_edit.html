@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dataset bearbeiten{% endblock %}
+{% block content %}
+    <h2>Dataset bearbeiten</h2>
+    <form method="post" id="datasetForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.version.label_tag }}
+            {{ form.version }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.file.label_tag }}
+            {{ form.file }}
+            <small id="fileHelp" class="form-text text-muted">Aktuelle Datei: {{ object.file.name }}</small>
+            <div id="fileSizeInfo" class="mt-2"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="tagInput" class="form-label">Tags</label>
+            <input type="text" id="tagInput" class="form-control" placeholder="Neuen Tag eingeben">
+            <button type="button" id="addTagButton" class="btn btn-primary mt-2">Tag hinzufügen</button>
+        </div>
+
+        <ul id="tagList" class="list-group mb-3">
+            {% for tag in object.tags.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ tag.name }}
+                <button type="button" class="custom-remove-button btn-sm" onclick="removeTag(this, '{{ tag.name }}')">&times;</button>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <input type="hidden" name="tags" value="{{ object.tags.all|join:"," }}">
+
+        <button type="submit" class="btn btn-success">Änderungen speichern</button>
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- [Der vorherige JavaScript-Code bleibt größtenteils unverändert.] -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... [Vorheriger Code]
+
+            const existingTags = new Set([ {% for tag in object.tags.all %}'{{ tag.name|lower }}',{% endfor %} ]);
+
+            // ... [Restlicher vorheriger Code]
+
+            function removeTag(button, tagName) {
+                const listItem = button.parentNode;
+                existingTags.delete(tagName.toLowerCase());
+                tagList.removeChild(listItem);
+                updateTagsField();
+            }
+
+            // ... [Restlicher vorheriger Code]
+
+            function saveDataset() {
+                const formData = new FormData(document.getElementById('datasetForm'));
+
+                // Füge die Tags aus dem Set hinzu
+                formData.set('tags', Array.from(existingTags).join(','));
+
+                fetch('{% url "dataset_edit" object.id %}', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Dataset erfolgreich aktualisiert!');
+                        // Weiterleitung zur dataset_list oder detail Seite
+                        window.location.href = '{% url "dataset_detail" object.id %}';
+                    } else {
+                        console.error('Fehler beim Aktualisieren des Datasets!');
+                        response.text().then(text => {
+                            console.error('Fehlerdetails:', text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Aktualisieren des Datasets:', error);
+                });
+            }
+        });
+    </script>
+{% endblock %}
