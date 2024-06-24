@@ -1,14 +1,19 @@
 from django import forms
 from .models import Dataset
 
+
 class DatasetForm(forms.ModelForm):
-    file = forms.FileField(required=False)  # Datei-Feld, das nicht im Modell gespeichert wird
-    size = forms.CharField(label='Size (in KB)', required=False)  # Hier wird das Label gesetzt
 
     class Meta:
         model = Dataset
         fields = ['title', 'description', 'tags', 'size', 'version', 'file']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['tags'].widget = forms.HiddenInput()  # Verstecke das Tags-Feld
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'tags': forms.HiddenInput(),
+            'size': forms.NumberInput(attrs={'class': 'form-control', 'label':'Size (in KB)', 'required':False}),
+            'version': forms.NumberInput(attrs={'class': 'form-control'}),
+            'file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'creator': forms.Select(attrs={'class': 'form-control'}),
+            'last_modified_by': forms.Select(attrs={'class': 'form-control'}),
+        }

@@ -2,17 +2,6 @@
 {% load static %}
 {% block title %}ML Model Formular{% endblock %}
 {% block content %}
-    <style>
-        .form-label {
-            text-align: right;
-        }
-        .form-control {
-            margin-bottom: 1rem;
-        }
-        label {
-            font-weight: bold;
-        }
-    </style>
     <h2>ML Model Formular</h2>
     <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}

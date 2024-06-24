@@ -64,3 +64,13 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+        .form-label {
+            text-align: right;
+        }
+        .form-control {
+            margin-bottom: 1rem;
+        }
+        label {
+            font-weight: bold;
+        }
