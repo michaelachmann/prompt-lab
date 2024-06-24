@@ -17,43 +17,49 @@
     <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="form-group row">
-            <label for="{{ form.title.id_for_label }}" class="col-sm-2 col-form-label form-label">Name</label>
+            <label for="{{ form.name.id_for_label }}" class="col-sm-2 col-form-label form-label">Name</label>
             <div class="col-sm-10">
-                {{ form.title }}
+                {{ form.name }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.text.id_for_label }}" class="col-sm-2 col-form-label form-label">Type</label>
+            <label for="{{ form.type.id_for_label }}" class="col-sm-2 col-form-label form-label">Type</label>
             <div class="col-sm-10">
-                {{ form.text }}
+                {{ form.type }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.category.id_for_label }}" class="col-sm-2 col-form-label form-label">Description</label>
+            <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label form-label">Description</label>
             <div class="col-sm-10">
-                {{ form.category }}
+                {{ form.description }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Tags</label>
+            <label for="{{ form.tags.id_for_label }}" class="col-sm-2 col-form-label form-label">Tags</label>
             <div class="col-sm-10">
-                {{ form.rating }}
+                {{ form.tags }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Parameters</label>
+            <label for="{{ form.parameters.id_for_label }}" class="col-sm-2 col-form-label form-label">Parameters</label>
             <div class="col-sm-10">
-                {{ form.rating }}
+                {{ form.parameters }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Size</label>
+            <label for="{{ form.size.id_for_label }}" class="col-sm-2 col-form-label form-label">Size</label>
             <div class="col-sm-10">
-                {{ form.rating }}
+                {{ form.size }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Version</label>
+            <label for="{{ form.version.id_for_label }}" class="col-sm-2 col-form-label form-label">Version</label>
+            <div class="col-sm-10">
+                {{ form.version }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.rating.id_for_label }}" class="col-sm-2 col-form-label form-label">Rating</label>
             <div class="col-sm-10">
                 {{ form.rating }}
             </div>
